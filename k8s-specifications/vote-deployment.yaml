@@ -14,9 +14,19 @@ spec:
       labels:
         app: vote
     spec:
+      imagePullSecrets:
+      - name: regcred
       containers:
-      - image: dockersamples/examplevotingapp_vote
+      - image: registry-uat.fke.fptcloud.com/576bb055-bc8d-4b31-a36a-a454eaeb2921/votingapp_vote:latest
+        imagePullPolicy: IfNotPresent
         name: vote
         ports:
         - containerPort: 80
-          name: vote
+          name: http
+        resources:
+            limits:
+              cpu: 500m
+              memory: 500Mi
+            requests:
+              cpu: 200m
+              memory: 500Mi
